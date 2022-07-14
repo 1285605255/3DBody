@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>蜂窝热力图 - 通过事件获取数据</title>
+  <link rel="stylesheet" href="//a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+  <style>
+    html,
+    body,
+    #container {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .info span {
+      min-width: 300px;
+      max-width: 400px;
+      color: #1b91ff;
+    }
+    .legend {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+    }
+
+    .legend ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .color-item {
+      width: 30px;
+      height: 20px;
+      display: inline-block;
+    }
+
+    .label-item {
+      display: inline-block;
+      width: 30px;
+      margin-left: -2px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+<div id="container"></div>
+<div class="info" style="min-width: 350px; mex-width: 450px;">
+  <h4>热力事件回调参数</h4>
+  <p>当前热力值：<span id="val">--</span></p>
+  <p>当前包含的数据索引：<span id="indexes" style="display: block; overflow: scroll;">--</span></p>
+  <p>当前包含的数据数量：<span id="indexes-num">--</span></p>
+  <p>热力中心点坐标：
+    <span id="lng-lat">--</span>
+  </p>
+</div>
+
+<div class="legend">
+  <ul class="colors" id="legend-color"></ul>
+  <ul class="labels" id="legend-label"></ul>
+</div>
+<script src="//webapi.amap.com/maps?v=1.4.15&key=46b037a6cc07f7eb44b35a2ad953b91d"></script>
+<script src="//webapi.amap.com/loca?v=1.3.2&key=46b037a6cc07f7eb44b35a2ad953b91d"></script>
+<script src="//a.amap.com/Loca/static/dist/jquery.min.js"></script>
+<script>
+
+  var map = new AMap.Map('container', {
+    mapStyle: 'amap://styles/db9efe6a1745ac24b7269b862f359536',
+    zoom: 9,
+    center: [120.198254, 36.465551],
+    zooms: [4, 12],
+    pitch: 46,
+    viewMode: '3D'
+  });
+
+  $.get('//a.amap.com/Loca/static/mock/qingdao_500m.tsv', function (heatmapData) {
+    var layer = new Loca.HexagonLayer({
+      map: map,
+      fitView: true,
+      eventSupport: true,
+    });
+
+    layer.setData(heatmapData, {
+      lnglat: function (obj) {
+        var val = obj.value;
+        return [val['lng'], val['lat']]
+      },
+      value: 'count',
+      type: 'tsv'
+    });
+
+    layer.setOptions({
+      unit: 'meter',
+      mode: 'count',
+      style: {
+        color: ['#4575b4', '#99d594', '#e6f598', '#ffffbf', '#fee08b', '#fee08b', '#d53e4f'],
+        radius: 1000,
+        opacity: 1,
+        gap: 300,
+        height: [0, 11500]
+      }
+    });
+
+    // 事件 legendupdate: 图例数据更新完成回调此函数
+    layer.on('legendupdate', function (ev) {
+      var colorLegend = ev.colorLegend;
+      initLegend(colorLegend);
+    });
+
+    // 鼠标事件
+    layer.on('mousemove', function (ev) {
+      updateInfo(ev);
+    });
+
+    layer.render();
+
+    // 鼠标事件更新数据
+    function updateInfo(ev) {
+      var $val = document.getElementById('val');
+      var $idx = document.getElementById('indexes');
+      var $num = document.getElementById('indexes-num');
+      var $lngLat = document.getElementById('lng-lat');
+
+      $val.innerText = ev.value;
+      $idx.innerText = ev.indexes.join(', ');
+      $num.innerText = ev.indexes.length;
+      $lngLat.innerText = ev.lngLat.valueOf();
+    }
+
+    // 更新图例
+    function initLegend(colorLegend) {
+      var legends = colorLegend.map(item => {
+        // color 为 gradient 传入的格式
+        return `<li class="color-item" style="background-color: ${item.color}"></li>`
+      });
+
+      var ranges = colorLegend.map((item, index) => {
+        // range 可能为小数，可以自行取整计算
+        item.range[0] = Math.round(item.range[0]);
+        item.range[1] = Math.round(item.range[1]);
+
+        if (index == colorLegend.length - 1) {
+          return `<li class="label-item">${item.range[0]}</li><li class="label-item">${item.range[1]}</li>`;
+        }
+        return `<li class="label-item">${item.range[0]}</li>`;
+      });
+
+      document.getElementById('legend-color').innerHTML = legends.join('');
+      document.getElementById('legend-label').innerHTML = ranges.join('');
+    }
+  });
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,400 @@
+/**
+
+* @author MikyMei
+
+* @date 2021-12-10 13:26
+
+*/
+
+.spinIcon{
+
+  position: absolute;
+}
+
+
+.sliderBar {
+  left: 25%;
+  top: 10%;
+  height: 40%;
+  position: absolute;
+
+
+  :global {
+    .ant-slider-track {
+      position: absolute;
+      width: 1.5rem;
+      opacity:0.4;
+
+      height: 4px;
+      background-color: #00FFE8;
+      border-radius: 2px;
+      transition: background-color 0.3s;
+    }
+
+    .ant-slider-rail {
+      width: 1.5rem !important;
+      height: 100%;
+      opacity:0.2;
+    }
+
+    .ant-slider-handle {
+      width: 1.5rem;
+      margin-left:0;
+      background-color: #00FFE8;
+      border: solid 0.125rem rgb(145 213 255 / 50%);
+      border-radius: 1%;
+      box-shadow: 0;
+      cursor: pointer;
+      transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+
+    .ant-slider-vertical .ant-slider-mark {
+      top: 0;
+      left: 0rem;
+      width: 1.5rem;
+      height: 100%;
+    }
+
+  }
+}
+
+.sliderMesh {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.1);
+  width: 10%;
+  height: 50%;
+  right: 2%;
+  bottom: 40%;
+  text-align: center;
+  overflow-y: scroll;
+  flex-direction: column;
+  justify-content: space-around;
+
+}
+
+.meshCard {
+  width: 80%;
+  height: 20%;
+  margin: auto;
+
+
+}
+
+
+.avaterItem {
+  margin-right: 24px;
+}
+
+[class*='-col-rtl'] .avaterItem {
+  margin-right: 0;
+  margin-left: 24px;
+}
+
+.label {
+  color: #FFF;
+  font-family: sans-serif;
+  padding: 2px;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.displayCard {
+  display: inline;
+  position: absolute;
+}
+
+.hiddenCard {
+  display: none;
+  position: absolute;
+}
+
+.infoCard {
+  width: 20rem;
+  min-height: 30%;
+  height: auto;
+  margin-top: -10rem;
+  margin-left: 1rem;
+  background-color: rgba(48, 210, 189, 0.2);
+  //display: none;
+
+  position: absolute;
+  border: #30D2BD solid;
+  border-radius: 10px;
+  //
+  //// 隐藏和显示地切换动画
+  //-webkit-animation: fadenum 2s infinite;
+  //
+  //-moz-animation: fadenum 2s infinite;
+  //
+  //animation:fadenum 2s infinite;
+  :global{
+
+    .ant-divider {
+      box-sizing: border-box;
+      margin: 11px 0px;
+      /* padding: 12px; */
+      color: rgba(0, 0, 0, 0.85);
+      font-size: 14px;
+      font-variant: tabular-nums;
+      line-height: 1.5715;
+      list-style: none;
+      font-feature-settings: 'tnum', "tnum";
+      border-top: 1px solid rgba(255, 255, 255, 0.6) !important;
+    }
+
+    .ant-carousel .slick-dots-bottom {
+      bottom: -8px;
+    }
+    .ant-tabs {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 12px;
+      font-size: 14px;
+      font-variant: tabular-nums;
+      line-height: 1.5715;
+      list-style: none;
+      font-feature-settings: 'tnum', "tnum";
+      display: flex;
+      overflow: hidden;
+    }
+    .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+      color: #FF9C00;
+      text-shadow: 0 0 0.25px currentColor;
+    }
+
+    .ant-tabs-tab-btn {
+      outline: none;
+      transition: all 0.3s;
+      color: white;
+      //opacity: 0.4;
+    }
+
+    .ant-tabs-ink-bar {
+      position: absolute;
+      background: #FF9C00;
+      pointer-events: none;
+    }
+  }
+}
+
+@-webkit-keyframes fadenum { /*设置内容由显示变为隐藏*/
+
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+
+}
+
+@-moz-keyframes fadenum { /*设置内容由显示变为隐藏*/
+
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+
+}
+
+@-o-keyframes fadenum { /*设置内容由显示变为隐藏*/
+
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+
+}
+
+@keyframes fadenum { /*设置内容由显示变为隐藏*/
+
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+
+}
+
+
+.illCarousel {
+  margin:12px !important;
+  :global {
+    .ant-carousel {
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      color: rgba(0, 0, 0, 0.85);
+      font-size: 14px;
+      font-variant: tabular-nums;
+      line-height: 1.5715;
+      list-style: none;
+      font-feature-settings: 'tnum', "tnum";
+    }
+    .ant-carousel .slick-slider {
+      position: relative;
+      display: contents;
+      box-sizing: border-box;
+      touch-action: pan-y;
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .ant-tag {
+      box-sizing: border-box;
+      margin-left: 2px;
+      padding: 0;
+      color: #ffffff;
+      background: rgba(255, 243, 221, 0.5) !important;
+      font-size: 14px;
+      font-variant: tabular-nums;
+      line-height: 1.5715;
+      list-style: none;
+      font-feature-settings: 'tnum', "tnum";
+      display: inline-block;
+      height: auto;
+      margin-right: 8px;
+      padding: 0 7px;
+      font-size: 14px;
+      line-height: 32px;
+      white-space: nowrap;
+      border: 1px solid #ff9e00;
+      border-radius: 18px;
+      opacity: 1;
+      transition: all 0.3s;
+    }
+
+
+  }
+
+}
+
+
+.infoTitle {
+  display: flex;
+  margin: 12px;
+  row-gap: 0px;
+  flex-direction: row;
+  justify-content: space-between;
+  color: #FFFFFF;
+  font-size: 18px;
+}
+
+.organDesc{
+  color: #ffffff;
+  margin: 12px;
+}
+
+.illDesc{
+  color: #ffffff;
+  margin: 8px 2px;
+  display: flex;
+  width: 18rem;
+  min-height: 4rem;
+  overflow-y: scroll;
+
+}
+
+.output{
+  width: 100%;
+  height: 100%;
+  background: url('https://3-d-health-1253940515.cos.ap-shanghai.myqcloud.com/sceneBackground.png') center repeat;
+  background-size:110% 110%;
+
+
+}
+
+.webglOutput{
+  width:100%;
+  height:100%;
+}
+
+
+.closeIcon{
+  color:white;
+  opacity: 0.6;
+}
+
+
+.illType{
+  color:#00FFDE;
+
+}
+
+
+.compareButton{
+  left: 52%;
+  top: 5%;
+  height: 1.5rem;
+  width: 12rem;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
+.compareButton1{
+  left: 52%;
+  top: 12%;
+  height: 1.5rem;
+  width: 12rem;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.compareButton2{
+  left: 52%;
+  top: 19%;
+  height: 1.5rem;
+  width: 12rem;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.compareText{
+  font-size: 16px;
+  font-family: "PingFang_SC";
+  font-weight: 500;
+  color: #30D2BD;
+  line-height: 22px;
+}
+
+.compareText:hover{
+  text-shadow : 0 0 10px currentColor;
+}
